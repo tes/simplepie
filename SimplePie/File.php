@@ -106,6 +106,7 @@ class SimplePie_File
 					curl_setopt($fp, CURLOPT_FOLLOWLOCATION, 1);
 					curl_setopt($fp, CURLOPT_MAXREDIRS, $redirects);
 				}
+				curl_setopt($fp, CURLOPT_COOKIEFILE, '/dev/null'); // Wikispaces
 
 				$this->headers = curl_exec($fp);
 				if (curl_errno($fp) === 23 || curl_errno($fp) === 61)

@@ -194,10 +194,12 @@ class SimplePie_Misc
 	{
 		if ((ini_get('error_reporting') & $level) > 0)
 		{
+			$pearLevel = PEAR_LOG_DEBUG;
 			switch ($level)
 			{
 				case E_USER_ERROR:
 					$note = 'PHP Error';
+					$pearLevel = PEAR_LOG_ERR;
 					break;
 				case E_USER_WARNING:
 					$note = 'PHP Warning';
@@ -209,6 +211,9 @@ class SimplePie_Misc
 					$note = 'Unknown Error';
 					break;
 			}
+			// Wikispaces: change logging to avoid messages in error logs
+			WSLog::get()->log("$message in $file on line $line", $pearLevel);
+			return $message;
 
 			$log_error = true;
 			if (!function_exists('error_log'))
